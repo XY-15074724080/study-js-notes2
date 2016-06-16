@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>2_正则常用方法</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//正则表达式：用来匹配字符串   目的：让计算机能够读懂人类的规则（正则：表单验证的主力）
+		//两种创建方法：1、以创建变量的形式直接创建：var reg=/a/g;
+		//											 正则的规则	   标识/附加参数
+		//2、通过创建RegExp对象来创建：var reg=new RegExp( "a" ,  "g")
+		//附加参数：g（全局）、i（不区分大小写）、m（多行匹配）
+		//常用规则有：
+		//   \s：空格
+		//   \S：非空格
+		//   \d：数字
+		//   \D：非数字
+		//   \w：字符（字母、数字、下划线）
+		//   \W：非字符
+
+
+
+		//test：判断字符串里面是否能够匹配到正则，能够，返回true，不能，则返回false
+		var str="abcde";
+		//定义一个正则，用来匹配字符串b
+		var reg=/b/;
+		console.log( reg.test(str) );
+
+		var str2="123456m789";
+		var reg2=/\D/;//匹配非数字
+		if(reg2.test(str2)){
+			console.log("不全是数字");
+		}else{
+			console.log("全是数字");
+		}
+
+
+		//search：返回匹配到的位置，如果没有，则返回-1（只要匹配到了，就会返回）
+		var str3="abcdefg";
+		var reg3=/b/;
+		console.log( str3.search(reg3) );//=>1
+
+		var reg4=/bcde/;
+		console.log( str3.search(reg4) );//=>1
+
+		var reg5=/B/;
+		console.log( str3.search(reg5) );//=>-1  匹配不到，返回-1
+
+		var reg5=/B/i;//附加参数i：不区分大小写
+		console.log( str3.search(reg5) );//=>1
+
+
+		//match：返回匹配到的数组
+		//默认情况下：对于正则而言，只要匹配成功，就会返回，不会往下执行了
+		var str4="a1bc3456d45ef123g";
+		var reg6=/\d/;//匹配数字
+		console.log( str4.match(reg6) );
+
+		//var reg6=/\d/g;
+		//     \\反斜杠在字符串里面需要转义
+		var reg7=new RegExp("\\d","g");//g：全局匹配，它会全部进行匹配，返回全部匹配到的数据
+		console.log( str4.match(reg7) );
+
+		var reg7=/\d\d/;//同时匹配相连的两个数字
+
+		//量词+：  代表\d至少出现一次，最多无限次
+		// \d+  ->  \d    \d\d    \d\d\d   ...
+		var reg8=/\d+/g;
+		console.log( str4.match(reg8) );
+
+
+		//replace：字符串替换，返回替换后的字符串
+		var str5="aaa";
+		console.log("替换前："+str5);//=>aaa
+		var reg9=/a/g;//把字符为a的部分全部替换掉
+		str5=str5.replace(reg9,"b");//替换为b
+		console.log( "替换后："+str5 );//=>bbb
+	</script>
+</body>
+</html>

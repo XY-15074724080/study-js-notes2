@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>7_项目案例_版本一</title>
+</head>
+<body>
+	<canvas height="600px" width="500px" id="canvas" />
+
+	<script type="text/javascript">
+		var ca=document.getElementById("canvas");
+		var ctx=ca.getContext('2d');
+		ctx.strokeStyle='rgb(255,0,0)';
+		ctx.beginPath();
+		ctx.moveTo(20, 40);
+		ctx.lineTo(50, 60);
+		ctx.closePath();
+		ctx.stroke();
+	</script>
+</body>
+</html>

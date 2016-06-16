@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//需求：请在Object类中扩展一个sayHi()的方法，这个方法可以随时调用(即无需使用new对象)
+		Object.sayHi=function(){
+			alert('hello');
+		}//静态成员：只要一个成员定义在类中（即非prototype中），通过类名.成员名 创建，那么这个成员就称为静态成员
+		Object.sayHi();//可以随时调用，无需使用new对象
+
+
+		//原来使用prototype原型来扩展
+		Object.prototype.sayBye=function(){
+			alert('bye');
+		}
+		//var obj=new Object();//这里需使用new创建一个obj对象，由对象来调用
+		//obj.sayBye();
+		Object.sayBye();//直接调用也可以
+	</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>2_基于原型的继承_创建对象_传递参数_案例</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function Person(name,sal){
+			this.name=name;
+			this.sal=sal;
+		}
+
+		Person.prototype={
+			toString:function(){
+				document.write( "姓名："+this.name+" 工资："+this.sal);
+			},
+			work:function(){
+				document.write(this.name+"开始工作"+"<br/>");
+			}
+		}
+
+		function Emp(name,sal,no){
+			Person.call(this,name,sal);
+			this.no=no;
+		}
+
+		Emp.prototype=new Person();
+		Emp.prototype.constructor=Emp;
+
+		Emp.prototype.toString=function (){
+			document.write( "姓名："+this.name+" 工资："+this.sal+" 编号："+this.no);
+		}
+
+		var emp=new Emp("张三",2000,1);
+		emp.toString();
+
+		function Manager(name,sal,allowance){
+			Person.call(this,name,sal);
+			this.allowance=allowance;
+		}
+
+		Manager.prototype=new Person();
+		Manager.prototype.constructor=Manager;
+
+		Manager.prototype.toString=function (){
+			return "姓名："+this.name+" 工资："+this.sal+" 补助："+this.allowance;
+		}
+
+		var m1=new Manager("李四",4000,1000);
+		document.write(m1.toString());
+	</script>
+</body>
+</html>

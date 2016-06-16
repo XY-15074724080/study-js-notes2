@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>5_使用临时构造器来解决两个问题</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function Shape(){};
+		Shape.prototype.name='形状';
+		Shape.prototype.toString=function(){return this.name};
+
+		function TwoDShape(){}
+
+		var F=function(){};
+		F.prototype=Shape.prototype;
+		TwoDShape.prototype=new F();
+		TwoDShape.prototype.constructor=TwoDShape;
+		TwoDShape.prototype.name='2D形状';
+
+		function Triangle(bottom,height){
+			this.bottom=bottom;
+			this.height=height;
+		}
+		var G=function(){};
+		G.prototype=TwoDShape.prototype;
+		Triangle.prototype=new G();//当new G时，是重新创建了G的原型，所以在下面改Triangle的prototype中的属性时，是改的G中的
+		Triangle.prototype.constructor=Triangle;
+		Triangle.prototype.name='三角形';
+	</script>
+</body>
+</html>

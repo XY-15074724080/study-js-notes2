@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>4_基于原型继承的缺点及改进</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//基于原型继承的问题在于：当定义子类的原型，必须显示地调用父类的构造函数，如果父类的构造函数的代码耗时，或有破坏性，或程序运行的状态，那就有问题了
+		//问题的核心就在于    它new了....Bird.prototype=new Animal();
+		function Shape(){};
+		Shape.prototype.name='形状';
+		Shape.prototype.toString=function(){return this.name};
+
+		function TwoDShape(){};
+		TwoDShape.prototype=Shape.prototype;
+		TwoDShape.prototype.constructor=TwoDShape;
+		TwoDShape.prototype.name='2D形状';
+
+		function Triangle(bottom,height){
+			this.bottom=bottom;
+			this.height=height;
+		}
+		Triangle.prototype=TwoDShape.prototype;
+		Triangle.prototype.constructor=Triangle;
+		Triangle.prototype.name='三角形';
+		Triangle.prototype.getArea=function(){
+			return this.bottom*this.height/2;
+		}
+
+		var a=new Triangle(3,4);
+		document.write(a.getArea()+"<br/>");
+		document.write(a.name+"<br/>");
+
+		var s=new Shape();
+		document.write(s.name+"<br/>");
+
+		var t=new TwoDShape();
+		document.write(t.name+"<br/>");
+
+		//属性也变成prototype链中的成员
+	</script>
+</body>
+</html>

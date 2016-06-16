@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function Person(name,age){
+			//this指的是当前对象的name    name指的是形参的name
+			//最开始，this.name是空值   接着通过这句代码将name的实参值传到this.name中保存
+			this.name=name;
+			this.age=age;
+		}
+
+		Person.prototype={//扩展两个功能
+			sayHello:function(name){
+							  //给Person传的参         //调用时给的参
+				document.write(this.name+" 说 hello to "+name+"<br/>");
+			},
+			sayBye:function(name){
+				document.write(this.name+" 说 bye to "+name+"<br/>")
+			}
+		}
+
+		var p1=new Person("张三",20);//给Person传两个参
+		p1.sayHello("smith");//调用它的sayHello功能，传了一个参进去 =>张三 说 hello to smith
+
+		Person.prototype.sayHello=function(name){//此处对sayHello这个功能重写
+			document.write(this.name+" 说 您好 给 "+name+"<br/>");
+		}
+		p1.sayHello("smith");//=>张三 说 您好 给 smith
+		p1.sayBye("tom");
+
+		Person.prototype.eat=function(food){//此处会给Person添加一个eat功能
+			document.write(this.name+" 吃 "+food+"<br/>");
+		}
+		p1.eat("apple");//=>张三 吃 apple  添加了eat功能
+		p1.sayHello("apple");//=>张三 说 您好 给 apple   修改了sayHello功能
+
+
+		//小结：需注意扩展的前后顺序问题如果此案例扩展顺序相反的话，会导致功能重写，以至于最先单独声明的功能被覆盖而报错（就是最好扩展时先把函数看成数组，往里添加多个成员，之后可以慢慢修改或添加）
+	</script>
+</body>
+</html>

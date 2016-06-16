@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//前面我们用过prototype扩展Array,Object(内置函数)中的equals,clone,这样它们下面的对象就有这些功能
+		//自定义类也可以使用prototype来扩展
+		function Person(name,age){
+			//this指的是当前对象的name    name指的是形参的name
+			//最开始，this.name是空值   接着通过这句代码将name的实参值传到this.name中保存
+			this.name=name;
+			this.age=age;
+		}
+		Person.prototype.sayHello=function (name){
+			document.write("hello, "+name+"<br/>");
+		}//这时只把prototype声明成了一个对象，后面一个prototype是看成一个数组，里面有多个成员，所以后面的会重写这个
+
+		//还可以通过prototype一次性扩展多个方法
+		Person.prototype={//这时把它看做一个数组，之后再像上面那样写prototype的话可以给里面添加对象或覆盖掉里面的某个成员
+			sayBye:function(name){
+				document.write(this.name+" say bye to "+name+"<br/>");
+			},
+			eat:function(foods){
+				document.write(this.name+" eat "+foods+"<br/>");
+			}
+		};//为了实现多个功能， 把它看做数组 一次性赋值
+
+		var p1=new Person("张三",20);
+		//p1.sayHello("smith");//会报错，因为后一个prototype覆盖了前一个prototype的空间
+		p1.sayBye("tom");
+
+		//利用原型扩展属性
+		Person.prototype.grade='一年级';//这样做，这个类创建的所有的对象都会有相同的属性值grade（一年级），最好不要这样做
+		document.write(p1.name+" "+p1.grade+"<br/>");//=> 张三 一年级
+
+		var p2=new Person("李四",30);
+		document.write(p2.name+" "+p2.grade+"<br/>");//=> 李四 一年级
+	</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>3_基于原型的继承_实现多继承</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function Animal(group,gender){
+			//定义属性，这样可以完成对对象的初始化操作
+			this.group=group;
+			this.gender=gender;
+		}
+		Animal.prototype.showInfo=function(){
+			document.write("类别："+this.group+" 性别："+this.gender);
+		}
+
+		//定义一个功能类   =>接口，规范
+		function layEggs(){
+			//因为每种鸟生蛋方法不一样，所以这里只定义方法，但不实现
+			this.buildNest=function(){};
+			this.lay=function(){};
+		}
+
+		function Bird(group,gender){
+			//让Bird继承 Animal,larEggs
+			layEggs.call(this);
+			Animal.call(this,group,gender);
+		}
+
+		Bird.prototype=new Animal();
+		Bird.prototype.constructor=Bird;
+
+		var b1=new Bird("喜鹊","雌");
+		b1.buildNest=function(){
+			document.write(this.group+"建巢"+"<br/>");
+		}
+
+		b1.buildNest();
+	</script>
+</body>
+</html>

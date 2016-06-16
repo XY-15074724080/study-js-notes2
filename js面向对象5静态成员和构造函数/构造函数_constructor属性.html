@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function Person(name,age){
+			//this指的是当前的对象的name      name指的是形参的name
+			//最开始，this.name是空值  接着通过这句代码将name的实参值传到this.name中保存
+			this.name=name;
+			this.age=age;
+		}
+
+		//constructor属性，保存的是当前对象的构造函数的源码，利用它可以创建另一个对象，可以判断一个对象的来源，也可以查看一个对象是否为某个特定的类型
+		var p=new Person("张三",20);
+		document.write(p.constructor+"<br/>");//输出对象p的来源，实际上是Person的一串代码
+
+		var p2=new p.constructor("李四",30);//当不知道p的来源 但是想要和p相同的来源时，可以这样声明
+		document.write(p2.name+" "+p2.age+"<br/>");
+		document.write(p2.constructor+"<br/>");//此时p2的来源也是Person
+
+		document.write( (p2.constructor==Person) +"<br/>");//=> true  此处判断p2的来源是不是Person
+		document.write( (p2.constructor==Object) +"<br/>");//=>false  p2的来源不是Object类
+	</script>
+</body>
+</html>

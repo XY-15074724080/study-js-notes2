@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>1_输出字符串中相连的数字</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//要求：找出字符串里面所有的数字，如果数字相连，则输出相连的数字
+		var str="a1b23c4565de2fg";
+
+		function findNum(str){
+			//定义返回数组
+			var arr=[];
+			//定义临时变量
+			var temp="";
+
+			for(var i=0;i<str.length;i++){
+				//数字必然大于0，小于9
+				if(str.charAt(i)<='9'&&str.charAt(i)>='0'){//字符串.charAt(1):取出字符串下标为1的那个字符
+					//判断此字符范围在[0,9]内
+					temp+=str.charAt(i);
+				}else{//若字符的范围不在[0,9]内
+					//假如temp是空，那么就没必要存到数组里面去
+					if(temp){//如果temp里有值
+						arr.push(temp);//把temp的值添加进数组arr
+						temp="";//注意：最后要把temp清空
+					}
+				}
+			}
+			//用于处理最后一个字符是数字的情况（因为如果最后一个是数字，那么便不会执行上面的else部分）
+			if(temp){
+				arr.push(temp);
+				temp="";
+			}
+			return arr;
+		}
+
+
+		//这是用正则表达式来做
+		function findNumByReg(str){
+			return str.match(/\d+/g);
+		}
+
+		document.write(findNum(str)+"<br/>");
+		document.write(findNumByReg(str)+"<br/>");
+		
+	</script>
+</body>
+</html>

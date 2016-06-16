@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>3_文本过滤</title>
+	<style type="text/css">
+		textarea{
+			width:400px;
+			height:200px;
+		}
+		input{
+			margin:10px 0px;
+		}
+	</style>
+</head>
+<body>
+	<textarea id="first"></textarea><br/>
+	<input type="button" value="过滤" onclick="filter()"/> <br/>
+	<textarea id="late"></textarea>
+	<script type="text/javascript">
+		//和谐这段话：人是人他妈生的，妖是妖他妈生的，人妖是人妖他妈生的，你他妈又是谁生的
+		function filter(){
+			//1、获取文本域里面的值
+			var str=document.getElementById("first").value;
+			//2、过滤，定义正则
+			//或者，用|       而逻辑运算符里面是用||的
+			var reg=/他妈|人妖|你他妈/g;
+			//3、把过滤后的文本放到下面那个textarea里面去
+			//document.getElementById("late").value=str.replace(reg,"**");//此处不应该写死替换成两个*
+			document.getElementById("late").value=str.replace(reg,function(ss){
+				var result="";//声明一个放*的结果
+				for(var i=0;i<ss.length;i++){
+					result+="*";//根据字符串的长度来添加*的多少
+				}
+				return result;
+			});
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var num=new Number(123);//将123包装成一个 Number对象
+		//好处：之后把它当做对象用，可以继承object类的很多方法
+		
+		document.write(num.toString()+" "+(typeof num)+"<br/>");//=>123 object    所有的对象都从object继承了一些方法，比如说：( toString():输出一个对象的详细信息 )、( valueOf():取出一个对象中包装的值 )、( hasOwnProperty():判定一个对象是否有某个属性 )
+		document.write((typeof 123)+"<br/>");//Number
+
+		document.write( num.valueOf()+"<br/>");//123  取出一个对象中包装的值 
+
+
+
+		var car={
+			color:'red',
+			run:function(){alert('run');}
+		}
+		document.write(car.hasOwnProperty('color')+" "+car.hasOwnProperty('logo')+" "+car.hasOwnProperty('run')+"<br/>");//=>true false true   判定一个对象是否有某个属性
+	</script>
+</body>
+</html>

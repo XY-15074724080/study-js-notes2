@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//定义一个Circle类，有一个半径的属性，和两个方法（计算周长，面积）
+		function Circle(r){
+			this.r=r;
+		}
+		//定义一个PI，静态
+		Circle.PI=3.14;
+		Circle.prototype={
+			perimeter:function(){
+				return 2*this.r*Circle.PI;
+				//return 2*this.r*Math.PI;//此处也可以不定义静态属性PI，而直接使用js的内置属性PI
+			},
+			area:function(){
+				return this.r*this.r*Circle.PI;
+			}
+		}
+
+		//创建一个圆的对象
+		var c=new Circle( 4 );
+		document.write("半径为"+c.r+"的圆，周长为："+c.perimeter()+"<br/>");
+		document.write("半径为"+c.r+"的圆，周长为："+c.area()+"<br/>");
+	</script>
+</body>
+</html>

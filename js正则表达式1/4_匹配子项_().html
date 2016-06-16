@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>4_匹配子项</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//匹配子项：()    会在后台把匹配到的东西存到RegExp中去，之后可以提出来用（耗时，耗内存，能不用，则不用）
+		
+
+
+		// var str="2016-5-19";
+		// var reg=/(\d+)-/g;//匹配 (一个或多个数字)-
+		// str.replace(reg,function($0){document.write($0+"<br/>")});//=>2016- 5-
+
+
+		// var str="2016-5-19";
+		// var reg=/(\d-)+/g;//匹配一个或多个(数字-)   6-5-
+		//  						  子项
+		// str.replace(reg,function($0,$1){document.write($0+"<br/>");document.write($1+"<br/>")});//=>6-5-   5-(子项)
+
+
+
+		// var str="2016-5-19";
+		// var reg=/(\d+)(-)/g;//(匹配一个或多个数字)(-)   2016-5-
+		// 						   子项1 子项2
+		// str.replace(reg,function($0,$1,$2){document.write("$0:"+$0+"<br/>");document.write("$1:"+$1+"<br/>");document.write("$2:"+$2+"<br/>")});
+		
+
+
+		//要求：2016-5-19 -> 2016.5.19
+		// var str="2016-5-19";
+		// var reg=/(\d+)(-)/g;//(匹配一个或多个数字)(-)   2016-5-
+		// str=str.replace(reg,function($0,$1,$2){
+		// 	return $1+".";
+		// })
+		// document.write(str+"<br/>");
+		
+
+
+		//小注意：匹配子项()在match里面有特殊的展示，会把子项也展示出来（反向引用：会在后台把匹配到的东西存到RegExp中去，之后可以提出来用）
+		var str="abc";
+		var reg=/abc/;
+		var reg1=/(a)(b)(c)/;
+		document.write(str.match(reg)+"<br/>");// => abc
+		document.write(str.match(reg1)+"<br/>");// => abc,a,b,c
+
+	</script>
+</body>
+</html>

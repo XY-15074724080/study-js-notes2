@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>5_字符类_[]</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//字符类 []  代表在字符类里面任意选择一个去进行匹配，只能选择一个
+		
+		var str="aefsed";
+		var reg=/a[bcdef]f/;//与/a(b|c|d|e|f)c/类似，但由于匹配子类的反向引用，所以最好不用这种方法，选用字符类方法
+		document.write(reg.test(str)+"<br/>");//=>true
+
+		//排除：在中括号里面的最开始加一个^，代表排除
+		var str1="atc";
+		var reg1=/a[^be]c/;//排除中括号里的所有
+		document.write(reg1.test(str1)+"<br/>");//=>true
+
+
+		//范围 -    注意：必须从小的到大的
+		var str2="atc";
+		var reg2=/a[a-z]c/;
+		document.write(reg2.test(str2)+"<br/>");//=>true
+	</script>
+</body>
+</html>
