@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//案例
+		//使用函数的特殊形式：匿名函数_重写函数自身来进行简易版浏览器检测
+		function showTable(){
+			var r=2;//此处省略大量判定浏览器为ff的代码
+			if(window.ActiveXObject ){//ie浏览器有一个别的浏览器都没有的对象ActiveXObject
+				r=1;//如果是ie浏览器，则r=1
+			}
+			if(r==1){//此处执行重写
+				showTable=function(){
+					//在ie中用table显示
+					var arr=arguments[0];//此处用var声明，说明这个arr是个局部变量
+					//把给的arr对象再赋给 数组arr（局部变量）
+					document.write("<table border='1' width='800px'>");
+					for(var i=0;i<arr.length;i++){
+						
+						document.write("<tr>");
+						//				    取出数组arr的每个元素的name和age属性输出
+						document.write("<td>"+arr[i].name+"</td><td>"+arr[i].age+"</td>");
+						document.write("</tr>");
+					}
+					document.write("</table>");
+				}
+			}
+			else if(r==2){
+				showTable=function(){
+					//在ff中用ul显示
+					var arr=arguments[0];//此处用var声明，说明这个arr是个局部变量
+					//把给的arr对象再赋给 数组arr（局部变量）
+					document.write("<ul>");
+					for(var i=0;i<arr.length;i++){
+						document.write("<li>");
+						document.write(arr[i].name+"  "+arr[i].age);
+						document.write("</li>");
+					}
+					document.write("</ul>");
+				}
+				
+			}
+		}
+
+
+		//此处与上同
+		function showTree(){
+			var r=2;
+			if(window.ActiveXObject){
+				r=1;
+			}
+			if(r==1){
+				showTree=function(){
+					document.write("以ie特性来显示tree<br/>");
+				}
+			}else if(r==2){
+				showTree=function(){
+					document.write("以ff特性来显示tree<br/>");
+				}
+			}
+		}
+
+		(function(){
+			showTable();
+			showTree();
+		})();//此处是匿名函数的自调用，自调用多个功能相同的函数 便于之后整合，实现函数的高内聚
+
+		var arr=[{name:"smith",age:20},{name:"tom",age:22}];
+		showTable(arr);//给了showTable一个arr对象     重写要实现的功能
+		showTree();//再次调用重写要实现的功能
+	</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<p>第一行</p>
+	<p>第二行</p>
+	<p>第三行</p>
+	<script type="text/javascript">
+		//闭包的应用bug_保存现场
+
+
+
+
+		//错误的情况：匿名函数没有被调用，所以它并没有保存当时的值
+		/*function addHandler(nodes){
+			for(var i=0;i<nodes.length;i++){
+				var node=nodes[i];
+				node.onclick=function(){//这个时候会取循环之后的最后结果执行操作
+					alert(i);//所以随便点击哪个都会弹出3，而我们要的是点击后分别弹出1,2,3
+				};//而在后面加上 () 调用则会直接调用弹出值，不能触发鼠标点击事件
+			}
+		}
+		*/
+	
+
+		//解决方案一
+		/*function addHandler(nodes){
+			function invoke(i){
+				return function(){//闭包
+					alert(i+1);
+				}
+			}
+			for(var i=0;i<nodes.length;i++){
+				var node=nodes[i];
+				node.onclick=invoke(i);
+			}
+		}*/
+
+		//解决方案二
+		/*function addHandler(nodes){
+			
+			for(var i=0;i<nodes.length;i++){
+				var node=nodes[i];
+				node.onclick=function (i){
+					return function(){//闭包
+						alert(i+1);
+					}
+				}(i);
+			}
+		}*/
+
+
+		var nodes=document.getElementsByTagName("p");//从标签名为p的标签中取出元素组成一个数组赋给nodes
+		addHandler(nodes);
+
+
+
+
+		
+	</script>
+</body>
+</html>

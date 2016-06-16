@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		Object.prototype.equals= function(obj){//完成：当前对象this与obj对象的内容比较操作
+			var result=false;
+			if(!obj){
+				return result;
+			}
+			//循环obj中所有的成员
+			for(var key in obj){//name age
+			 	if(!obj[key] || !this[key]||obj[key]!=this[key]){
+			 		return result;
+			 	}
+			 }
+			 for(var key in this){//name age
+			 	if(!obj[key] || !this[key]&&obj[key]!=this[key]){
+			 		return result;
+			 	}
+			 }
+			 result=true;
+			 return result;
+		}
+
+		var a={name:'xy',age:20};//所有的对象都继承自 object
+		var b={name:'xy',age:20};
+
+		document.write(a==b);//使用==比，比的是地址  => false
+		document.write(a.equals(b)+"<br/>");
+
+
+
+		//需求：复制一个对象到一个新的对象中
+		Object.prototype.clone= function(obj){
+			//循环当前对象this中的所有属性，存到一个新的对象newobj
+			var newobj={};
+			for(var key in this){
+				newobj[key]=this[key];
+			}
+			return newobj;
+		}
+		var newA=a.clone();
+		newA.name='tom';
+		document.write(a.name+"<br/>");//xy
+		document.write(newA.name+"<br/>");//tom
+	</script>
+</body>
+</html>

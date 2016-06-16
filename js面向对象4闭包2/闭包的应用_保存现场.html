@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//闭包的应用bug_保存现场
+		//问题
+		/*function f(){
+			var a=[];
+			for(var i=0;i<3;i++){
+				a[i]=function (){
+					return i*2;  //要实现 => 0,2,4
+				};
+			}
+			return a;
+		}//此处结果输出 => 6,6,6
+		*/
+		
+		//解决方案1
+		/*function f(){
+			//内部函数：便于维护
+			function inner(x){
+				return function(){
+					return x*2;
+				}
+			}
+			var a=[];
+			for(var i=0;i<3;i++){
+				a[i]=  inner(i) ;
+			}
+			return a;
+		}*/
+
+
+		//解决方案2   外部函数
+		/*function inner(x){
+			return function(){
+				return x*2;
+			}
+		}
+
+		function f(){
+			var a=[];
+			for(var i=0;i<3;i++){
+				a[i]=  inner(i) ;
+			}
+			return a;
+		}*/
+
+
+		//解决方案3   
+		function f(){
+			var a=[];
+			for(var i=0;i<3;i++){
+				a[i]=function (x){
+					return function(){//闭包
+						return x*2;
+					} 
+				}(i);
+			}
+			return a;
+		}
+
+
+
+
+		var result=f();
+		document.write(result[0]()+"<br/>"+result[1]()+"<br/>"+result[2]()+"<br/>");
+	</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//闭包的应用_封装
+		//需求：封装一个person的信息（name，age 将属性封装起来）
+		var StringBuffer=(
+			function(){
+				var arr=new Array();
+				return{
+					value:function(){//用来把添加的字符串连接起来再输出
+						return arr.join("");
+					},
+					append:function(val){//用来添加值
+						arr[arr.length]=val;
+					}
+				}
+			}
+		)();
+
+		document.write("原始字符串："+StringBuffer.value()+"<br/>");
+		StringBuffer.append("hello");
+		StringBuffer.append("world");
+		document.write("添加后的字符串："+StringBuffer.value()+"<br/>");
+
+
+
+
+
+		//需求：按顺序每调用一次输出对应的值
+		function selfNext( arr ){
+			var index=0;//声明一个变量代表数组的索引号
+			return function(){
+				return arr[index++];//输出此索引号对应的值 然后索引号自加1，跳到下一个索引号
+			}
+		}
+		var mynext=selfNext([1,2,3,4]);
+
+
+		// while (a=mynext()) {
+		// 	document.write(a+"<br/>");
+		// }//这个方法可排除undefined
+		document.write(mynext());// => 1
+		document.write(mynext());// => 2
+		document.write(mynext());// => 3
+		document.write(mynext());// => 4
+		document.write(mynext());// => undefined
+	</script>
+</body>
+</html>

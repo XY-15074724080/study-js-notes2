@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//8_函数的返回值_简单类型
+		function add( ){
+			var sum=0;
+			for(var i=0;i<arguments.length;i++){
+				sum+=arguments[i];
+			}
+			return sum;
+		}
+		document.write(add(1,2,3)+"<br/>");// => 6
+
+		//所有函数都有返回值，使用return精确控制return所返回的值，不写return的话，则返回的是undefined
+		//return运行完后，函数的执行终止
+		function show(){
+			var x=5;
+		}
+		document.write( show() +"<br/>");//undefined
+		//此函数没有设计返回值，调用时则undefined
+
+
+
+
+		//8_函数的返回值_对象类型
+		//一个函数只能返回一个值，如果要返回多个，则使用数组或对象
+		
+		//使用对象返回
+		function add2(vala,valb){
+			var sum=vala+valb;
+			return {result:sum,a:vala,b:valb};
+		}
+
+		//需求：计算 返回的值为：{a:xx   b:xx   result:xxx}
+		var r=add2(1,2);
+		document.write(r.a+"+"+r.b+"="+r.result+"<br/>");
+
+
+		//使用数组返回
+		function add3( ){
+			var sum=0;
+			var arr=new Array();//声明一个数组
+			for(var i=0;i<arguments.length;i++){//循环所给的对象
+				sum+=arguments[i];//计算和值
+				arr[i]=arguments[i];//把对象传给数组
+			}
+			return {result:sum,origin:arr};
+		}
+		var r2=add3(1,2,3,4,5);
+		var str=r2.origin.join("+");//把数组内的值以"+"号连接成一个字符串并赋给str
+		document.write(str+"="+r2.result+"<br/>");// => 1+2+3+4+5
+
+
+
+
+		//9_函数中的变量的作用域
+		//作用域：指的是变量起作用的范围
+		//全局变量：在函数中声明变量加了var，则这个变量是局部变量，没有加，则是一个全局变量(全局变量在函数外声明)
+		var val="apple";//它是一个全局变量
+
+		function funA(){
+			val="pear";  //在这里，val就是全局变量val  因为它前面没有加var声明
+			document.write("inner val:"+val+"<br/>");//pear
+		}
+		funA();
+		document.write("outer val："+val+"<br/>");//pear
+		//上面   funA中操作的变量就是全局变量
+
+		function funB(){
+			var val="banana";//这里使用 var 声明了一个局部变量，虽然名字与全局变量相同，但局部变量优先于全局变量
+			document.write("inner val2:"+val+"<br/>");//banana
+		}
+		funB();
+		//funB中操作的变量是局部变量val，不会改变全局变量val的值
+		document.write("outer val2："+val+"<br/>");//pear
+
+		function funC(){
+			var cc="xy";//局部变量
+		}
+		//document.write("在外面访问函数funC中的cc："+cc);//ReferenceError:cc is not defined
+		//在函数中声明的变量，在函数外不能调用
+		//小结：写函数function时，声明变量都要加上var，否则当变量重名时，会影响到全局变量
+
+
+
+		//11_函数也是一种数据
+		//函数也是一种数据，也可以赋值，因为js是弱类型的
+		//函数名就是变量名
+		var x=1;
+		var y=x;//此时把x的值赋给y，y值改变，但x值不会变，同理，函数也一样
+
+		//因为函数就是一段代码，所以这段代码也可以赋值给别的变量
+		var sum=function(a,b){
+			return a+b;
+		}
+		add=sum;//因为函数名就是变量名，之前写了一个函数add，此处是测试，可以不用var再次声明，平时应尽量用var声明以区别变量
+		//var add=sum;
+		document.write(add(1,2)+"<br/>");// =>3
+		document.write(typeof sum+"<br/>");// =>function
+		document.write(typeof add+"<br/>");// =>function
+	</script>
+</body>
+</html>

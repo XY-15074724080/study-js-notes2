@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+
+		//函数的特殊形式
+		//12_内部私有函数：在一个函数内声明另一个子函数，子函数在函数外是不能访问（调用）的，因为它是函数的局部变量（函数名就是变量名）
+		//子函数主要是用来包装一些特殊算法的，便于实现函数的封装
+		function show2(){
+			//show函数的子函数son
+			function son(){//子函数用来包装一些特殊算法
+				document.write("hello<br/>");
+			}
+			son();
+		}
+		
+		//son();  // =>ReferenceError: son is not defined
+		//在show()外面是不能调用到son()的
+		
+		//通过调用父函数，通过父函数来调用子函数
+		show2(); // =>hello
+
+
+		//案例
+		//需求：写一个函数，传入两个数和一个运算符，计算 两个数相应运算的结果
+		function jisuan(a,b,op){
+			//子函数功能：包含运算算法
+			function add(a,b){
+				return a+b;
+			}
+			function sub(a,b){
+				return a-b;
+			}
+			function mul(a,b){
+				return a*b;
+			}
+			function chu(a,b){
+				return a/b;
+			}
+			if(op=='+'){//判断运算符
+				return add(a,b);
+			}else if(op=='-'){
+				return sub(a,b);
+			}else if(op=='*'){
+				return mul(a,b);
+			}else if(op=='/'){
+				return chu(a,b);
+			}
+		}
+		document.write("计算结果为："+jisuan(1,2,'+')+"<br/>");
+
+
+
+
+
+		//函数的特殊形式
+		//13_匿名函数回调（优先级最高）
+		//回调：函数间接调用，不是自己主动调用
+		
+		//案例
+		//需求：以指定的格式输出结果 （将多个数字*2）
+		function show3( arr ){
+			for (var i=0;i<arr.length;i++){
+				document.write(arr[i]+"<br/>");
+			}
+		}//这个函数只有一个输出功能，换行输出
+
+		function show4( arr ){
+			document.write("<ul>");
+			for (var i=0;i<arr.length;i++){
+				document.write("<li>"+arr[i]+"</li>");
+			}
+			document.write("</ul>");
+		}//这个函数只有一个输出功能，无序列表输出
+
+		function jisuan2(){
+			//将1,2,3,4从arguments中取出，存到一个数组中
+			var arr=new Array();
+			for(i=0;i<arguments.length-1;i++){
+				arr[i]=arguments[i]*2;//此处计算每个对象乘以2
+			}
+			//再调用show(数组)
+			//判断最后一个参数的类型是否为function
+			if(typeof arguments[arguments.length-1]=='function'){//arguments[arguments.length-1]：所给的对象的最后一个
+				arguments[arguments.length-1](arr);//等价于show(arr);  此处回调
+			}
+		}
+
+		//jisuan2(1,2,3,4,show3);	//函数也是一种数据，   这里，传进去的是show函数的代码    要运行的话，必须加()  
+		
+		//使用匿名函数
+		//匿名函数：var show=function(){}
+		jisuan2(1,2,3,4,function ( arr ){
+			for (var i=0;i<arr.length;i++){
+				document.write(arr[i]+"<br/>");
+				}
+			});
+		jisuan2(1,2,3,4,function ( arr ){
+			for (var i=0;i<arr.length;i++){
+				document.write(arr[i]+"<hr/>");
+				}
+			});
+		jisuan2(1,2,3,4,function ( arr ){
+			document.write("<ul>");
+			for (var i=0;i<arr.length;i++){
+				document.write("<li>"+arr[i]+"</li>");
+				}
+				document.write("</ul>");
+			});
+		//匿名函数回调的优点：1、运算性能高
+		//					  2、节省全局变量
+		//					  3、将一个函数的调用交给了另一个函数（回调）
+
+
+
+		//13_匿名函数的自调用
+		//函数的调用是：函数名();
+		//自调用是:代码();
+		//为了便于使用：(代码)();
+		(function(){
+			document.write("hello <br/>");
+			})();
+
+
+		//匿名自调用函数传参问题
+		//函数传参：函数名(1,2);
+		//匿名自调用函数传参：(代码)(1,2);
+		(function (){
+			document.write("hello"+arguments[0]+"<br/>");
+		})('xy');
+
+
+
+		//14_匿名函数_作为返回值用
+		//因为函数也是一种数据
+		function a(){
+			document.write("hello");
+
+			return function(name){
+				document.write("bye bye"+name+"<br/>");
+			};
+		}
+		//a()()的由来：a();   // =>hello  此时调用了函数a
+					//var r=a();   //等价于var r=function (){document.write("hello<br/>");return function(){document.write("bye bye"+arguments[0]+"<br/>");};}
+					//r();      // =>hello bye bye
+					
+		a()();      // =>hello bye byeundefined 因为没有给定name
+		a()("张三");   // =>hello bye bye张三
+
+
+		//15_匿名函数_重写函数自身
+		//缺点：容易覆盖原来的全局变量（所以定义变量时都用上var声明）
+		//优点：可用于解决浏览器检测问题
+		function a2(){
+			document.write("hello<br/>");
+			a2=function(){
+				document.write("bye <br/>");
+			};
+		}
+		a2();	//第一次执行，输出的是函数本身所实现的内容 => hello
+		a2();	//第二次执行，此时匿名函数重写了自身函数，会重写实现功能 => bye
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//创建对象
+		//1_利用内置对象来创建对象
+		var arr=new Array();
+		var d=new Date();
+		var o=new Object();
+
+		//2_利用对象字面量创建
+		var b={};
+		var c={name:'xy',age:20};
+
+		document.write(typeof(arr)+" " +typeof(d)+"\t"+typeof(o)+" "+typeof(b)+" "+typeof(c)+"<br/>");
+
+
+		//对象成员的操作
+		var person={name:'xy',age:20};
+		showInfoInObject(person);
+
+		//添加属性
+		person.sex='male';
+		showInfoInObject(person);
+		//添加函数（方法）
+		person.showInfo=function(){
+			document.write("信息为：");
+			showInfoInObject(this);
+		}		
+		showInfoInObject(person);
+
+		//修改成员
+		person.showInfo=function(){
+			document.write("当前对象信息为：");
+			showInfoInObject(this);
+		}		//需修改时只需重写原来的方法就行
+		showInfoInObject(person);
+
+		//删除成员
+		delete person['sex'];
+		showInfoInObject(person);
+
+
+		//工具方法：循环输出对象中的各个成员
+		function showInfoInObject(obj){
+			for(var key in obj){
+				document.write(key+":"+obj[key]+"<br/>");
+			}
+			document.write("<hr/>");
+		}
+
+
+		
+	</script>
+</body>
+</html>

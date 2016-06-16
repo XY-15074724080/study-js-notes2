@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//词法：定义的时候的语法
+		//词法作用域：在js中，每个函数都有一个自己的词法作用域，换句话说，即每个函数在定义时（不是执行时）都会创建一个自己的环境（会记录下自己的引用路径，自己访问变量）   =>  声明函数时能看到的作用域
+		/*
+		function f1(){
+			var a=1;
+			f2();
+		}
+
+		//当f2函数在这里声明时，它访问的作用域是 自身和全局，f1中的a是看不到的
+		function f2(){
+			return a;//此处报错 ReferenceError: a is not defined
+		}
+		document.write(f2());// => ReferenceError: a is not defined
+		*/
+		
+
+
+		//////////////////////////////////////
+		
+		//解决方案：将f2的声明移入f1中
+		/*function f1(){
+			var a=1;
+			function f2(){//这样声明的话，f2()就变成了一个f1()的私有函数，外部无法调用
+				return a;
+			}
+			return f2();//在这里返回 调用函数f2
+		}
+		document.write(f1());  //=> 1  这里通过调用f1()来调用它的子函数f2
+		*/
+	
+		////////////////////////////////换成匿名内部函数
+		/*function f1(){
+			var a=1;
+			return function(){//这里function(){ return a; }就相当于上面的变量f2  只是一串代码
+				return a;
+			}();//如果返回function(){return a;}的话就只是返回了匿名函数的这一串代码，是没有激活的，要在后面加上一个 () 才能达到调用（激活）的作用
+		}
+		document.write(f1()); //=> 1
+		*/
+	
+		var a=10;
+		function f1(){
+			var a=20;
+			return function(){//闭包：突破变量生命周期
+				return a;
+			};
+		}
+		a=30;
+		a=a*10;
+
+		document.write(f1()());//此时先调用函数f1，然后返回一串匿名函数的代码，然后后面一个 () 再激活这串代码
+		//激活这串代码后 运行起来 它先会在函数内部找值，内部找不到 再会在函数外部去找值，这样一层一层找过去直到整个脚本（script）
+		
+		
+		
+		//正常情况下，函数里声明的参数就没有了
+		//但是闭包就突破了变量的生命周期
+		//当创建一个 引用直接外部作用域中的属性的 函数，就会创建闭包，保存的是引用值（最后一个引用值，最后一次才会执行）
+		function greet(name){
+			return function(greeting){
+				return greeting+" "+name;
+			}
+		}
+		var r=greet("smith");
+		document.write(r);//此时r保存的是function(greeting){return greeting+" "+name;}这一串代码,而smith并没有交给代码中的name，只是记下了它的引用路径，等到这串代码被激活的时候才会把最终结果交给代码中的name
+		document.write(r("hello"));//=> hello smith
+
+
+
+
+
+
+	</script>
+</body>
+</html>

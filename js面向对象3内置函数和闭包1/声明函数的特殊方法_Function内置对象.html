@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//js引擎中有一个内置对象 Function  也可以创建函数
+		//书写方式：Function （形参列表，实现的功能代码）
+		//声明函数的特殊方法
+		var add=new Function("a","b","document.write(a+b+'<br/>')");
+		add(1,2);
+
+
+		function(a,b){
+			document.write(a+b+"<br/>");
+		}
+	</script>
+</body>
+</html>

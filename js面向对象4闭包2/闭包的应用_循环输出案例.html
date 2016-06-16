@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var arr=["apple","pear","banana"];
+		var innerArray=new Array();
+
+		//问题
+		/*//循环输出数组arr内的值
+		for(var i=0;i<arr.length;i++){
+			var item=arr[i];
+			innerArray[i]=function(){
+				document.write(item+"<br/>");
+			}
+		}*/
+		
+
+
+		//解决方案1：外部函数或函数工厂
+		/*function outer(item){
+			return function(){//闭包
+				document.write(item+"<br/>");
+			}
+		}
+		for(var i=0;i<arr.length;i++){
+			var item=arr[i];
+			innerArray[i]=outer(item);
+		}*/
+
+
+		//解决方案2：也可以使用自调用的匿名函数完成
+		for(var i=0;i<arr.length;i++){
+			var item=arr[i];
+			innerArray[i]=(function (item){
+				return function(){//闭包
+					document.write(item+"<br/>");
+				}
+			})(item);
+		}
+
+
+		for(var i=0;i<innerArray.length;i++){
+			innerArray[i]();
+		}
+
+	</script>
+</body>
+</html>
