@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+	<script>
+		var str="abbccaasskkkeeecfhfgifghda";
+		var arr=str.split("");//把字符串各个拆开成数组赋给 arr
+		str=arr.sort().join("");//把数组排序然后连接起来成字符串赋给str
+		
+		var value="";
+		var num=0;
+		var reg=/(\w)\1+/g;//   (\w)\1：匹配两个一样的字符
+							//	父项 子项
+		str.replace(reg,function($0,$1){
+			if(num<$0.length){//如果num所存的长度 小于 所给的新的父项的长度
+				num=$0.length;//就把 新的父项的长度 赋给num, 覆盖num原先保存的长度
+				value=$1;//同时把value的值更新为 新的父项的 子项
+			}	
+		});
+		document.write("出现最多的字符是："+value+"，一共出现了"+num+"次");
+	</script>
+</body>
+</html>

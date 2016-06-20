@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+	<script>
+		var str="    ycinfo   ";
+		document.write("("+str+")");
+		var reg=/^\s+|\s+$/g;//空格开头或者空格结尾
+		
+		str.replace(reg,"");
+		document.write("("+str+")");
+	</script>
+</body>
+</html>

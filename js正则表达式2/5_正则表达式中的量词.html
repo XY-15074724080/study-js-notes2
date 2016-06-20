@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+	<input type="text" id="qq" /><input type="button" value="查询" onClick="check()" />
+	<script>
+		//量词：规定出现的次数   {}   {3}：出现3次  {4,8}出现4-8之间   {4,}出现4次以上   {,4}最多4次
+		//+:出现至少一次，最多无限 {1,}
+		//?:出现0次或者1次{0,1}
+		//*:任意个，至少出现0次{0,}
+		function check(){
+			var str=document.getElementById("qq").value;
+			var reg=/^[1-9]\d{4,10}$/;//数字（1-9） 任意一个开头，之后任意4-10个 数字
+			if(reg.test(str)){
+				alert("是QQ号");
+			}else{
+				alert("不是QQ号");
+			}
+		}
+		//正则的开始和结束
+		//^:如果放在[]里面，指非     如果放在正则的最前面，就指开始
+		//$:如果放在正则的最后面，就指结尾
+	</script>
+</body>
+</html>

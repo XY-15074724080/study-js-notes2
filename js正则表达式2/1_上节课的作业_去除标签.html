@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<textarea id="first"></textarea><br/>
+	<input type="button" value="替换" onClick="filter()" /><br/>
+	<textarea id="late"></textarea><br/>
+	<script type="text/javascript">
+		function filter(){//过滤
+			var str=document.getElementById("first").value;//取出id为first的元素中的值
+			//var reg=/<[\w]+>/g;
+			var reg=/<[^>]+>/g;//定义正则
+			document.getElementById("late").value=str.replace(reg,"");
+		}
+	</script>
+</body>
+</html>
