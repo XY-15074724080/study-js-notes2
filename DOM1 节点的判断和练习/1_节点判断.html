@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="mydiv">
+		你吃不吃饼干     <!--空白节点-->
+		<p>吃了你就是我老婆</p>     <!--空白节点-->
+		<div>不吃你就是我女朋友</div>     <!--空白节点-->
+		<h1>不吃算了</h1>     <!--空白节点-->
+	</div>
+	<script type="text/javascript">
+		//严禁在网页DOM没有创建完之前，去使用DOM
+		var mydiv=document.getElementById("mydiv");//获取id名为mydiv的元素  
+		//alert(mydiv);//=>[object HTMLDivElement]
+		/*
+				在文档对象模型（DOM）中，每个节点都是一个对象。DOM 节点有三个重要的属性：
+				   1.nodeName : 节点的名称
+				   2.nodeValue : 节点的值
+				   3.nodeType : 节点的类型
+		 */
+		
+		//    获取所有的属性
+		//alert( mydiv.attributes[0].nodeType );//=>2  =>元素类型为 属性
+		
+		
+		//节点的遍历
+		//得到一个父节点下面所有的子节点
+		var node=mydiv.childNodes;//取出mydiv下所有的子节点赋给node
+		for(var i=0;i<node.length;i++){//遍历（也叫循环）
+			console.log("第"+(i+1)+"个节点，节点名："+node[i].nodeName+",节点类型："+node[i].nodeType+",节点值："+node[i].nodeValue);
+		}
+
+		document.write( mydiv.firstChild.nodeValue );//mydiv下的第一个子节点的 节点的值
+		document.write( mydiv.lastChild.nodeValue );//mydiv下的最后一个子节点的 节点的值
+		document.write( mydiv.parentNode.nodeName );//mydiv的父节点的 节点的名称
+
+
+
+
+		//取第二个div
+		var sdiv=document.getElementsByTagName("div")[1];//取出标签名为div的 第二个div 的元素
+		console.log( sdiv.previousSibling.nodeType );//sdiv的前一个兄弟节点的 节点类型 =>3
+		console.log( sdiv.nextSibling.nodeType );//sdiv的后一个兄弟节点的 节点类型 =>3
+
+		//封装
+	    function getPreSbl(n){
+	      //如果是空白节点，或者是注释，那么type一定不为1
+	      var x=n.previousSibling;
+	      while(x || x.nodeType!=1){
+	        x=x.previousSibling;
+	      }
+	      return x;
+	    }
+	    function getNextSbl(n){
+	      var x=n.nextSibling;
+	      while(x || x.nodeType!=1){
+	        x=x.nextSibling;
+	      }
+	      return x;
+	    }
+
+	    //向上的兄弟节点
+	    console.log( fetPreSbl(sdiv).nodeName );
+	    //向下的兄弟节点
+	    console.log( fetNextSbl(sdiv).nodeName );
+		
+		
+	</script>
+</body>
+</html>

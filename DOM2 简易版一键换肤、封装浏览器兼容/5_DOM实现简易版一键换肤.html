@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <style type="text/css">
+		p{
+			color:red;
+		}
+	</style>
+</head>
+<body>
+	<div id="mydiv" style="width:100px;height:100px;background-color:pink;" onclick="changeBgColor()">
+    
+	</div>
+	<script type="text/javascript">
+		function changeBgColor(){
+			var mydiv=document.getElementById("mydiv");
+			mydiv.style.backgroundColor="blue";//直接改样式
+		}
+	</script>
+	<!--一键换肤-->
+	<div id="pic" style="background: url(1.jpg); width:800px;height:600px;background-size: cover;">
+	</div>
+	<input type="button" value="一键换肤" onclick="changePic()"/>
+    
+    <p>测试文字</p>
+	<script type="text/javascript">
+		function changePic(){
+			var mydiv=document.getElementById("pic");
+			mydiv.style.background="url(2.jpg)";
+			//alert(document.getElementsByTagName("p")[0].style.color)//因为这里取的是p标签的style属性的color，而红色是在head里面定义的css样式，所以并不能取到
+		}
+	</script>
+</body>
+</html>

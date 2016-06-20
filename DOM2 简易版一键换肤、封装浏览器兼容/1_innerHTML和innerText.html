@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<input type="text" value="abcde" />
+	<div><p>测试文字</p></div>
+    <div></div>
+	<script>
+		/* var inp=document.getElementsByTagName("input")[0];
+		 alert(inp.value);//=>abcde  可以取出input里的value属性的值
+
+		 var myp=document.getElementsByTagName("p")[0];
+		 alert(myp.value);//=>undefined  取到的是myp的value属性的值，而p标签的value属性并没有定义
+		 alert(myp.firstChild.nodeValue);//=>测试文字    p标签的第一个子节点的节点值
+		*/
+
+		var mydiv=document.getElementsByTagName("div")[0];
+		console.log("innerHTML:"+mydiv.innerHTML);//可以把它的标签也取出来
+		console.log("innerText:"+mydiv.innerText);//只能取出它的文本值   在火狐里显示undefined，在谷歌里显示：测试文字      火狐不支持
+	</script>
+    <script>
+    	var mydiv=document.getElementsByTagName("div")[1];//取第二个div标签
+		/*console.log("innerHTML:"+mydiv.innerHTML);
+		mydiv.innerHTML="<p>测试文字</p>";//最明显的作用：在网页里显示HTML标签代码
+		console.log("innerHTML:"+mydiv.innerHTML);*/
+		
+		mydiv.innerText="<p>测试文字</p>";//这里插入的<p></p>是文本，不是标签
+		console.log("innerText:"+mydiv.innerText);
+    </script>
+</body>
+</html>

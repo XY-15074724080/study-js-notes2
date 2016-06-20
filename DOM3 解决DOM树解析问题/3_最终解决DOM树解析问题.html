@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script type="text/javascript" src="domReady.js"></script>
+</head>
+
+<body>
+
+    <div id="msg"></div><!--定义一个信息块-->
+    <div>
+	<img src="http://pic18.nipic.com/20111130/8885119_125321390000_2.jpg"/>
+	<img src="http://a.hiphotos.baidu.com/zhidao/pic/item/64380cd7912397ddc1cba8655f82b2b7d0a28724.jpg"/>
+	<img src="http://www.bz55.com/uploads/allimg/140414/137-140414094F2.jpg"/>
+	<img src="http://f.hiphotos.baidu.com/zhidao/pic/item/2cf5e0fe9925bc3181ad8c445bdf8db1ca13707e.jpg"/>
+	<img src="http://g.hiphotos.baidu.com/zhidao/pic/item/728da9773912b31ba67e15628018367adab4e16f.jpg"/>
+    </div>
+
+    <script>
+		var d=document;
+		var msg=d.getElementById("msg");
+		var time1=null;
+		var time2=null;
+		myReady(function(){
+			msg.innerHTML+="DOM已经加载<br/>";
+			time1=new Date().getTime();//获取时间戳   1970年1月1日0时0分0秒到现在所用的毫秒就是一个时间戳
+			msg.innerHTML+="时间戳："+time1+"<br/>";
+		});
+		window.onload=function(){
+			msg.innerHTML+="onload已经加载<br/>";
+			time2=new Date().getTime();//获取时间戳
+			msg.innerHTML+="时间戳："+time2+"<br/>";
+			msg.innerHTML+="domReady比onload快："+(time2-time1)+"ms<br/>";
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		// var arr=[ ["张三","19","男"],["李四","22","女"],["王五","20","男"],["赵六","21","女"] ];
+		// document.write("<table width='400' border='1px'>");
+		// for(var i=0;i<arr.length;i++){
+		// 	document.write("<tr>");
+		// 	for(var j=0;j<arr[i].length;j++){
+		// 		document.write("<td>"+arr[i][j]+"</td>");
+		// 	}
+		// 	document.write("</tr>");
+		// }
+		// document.write("</table>");
+
+
+		var arr2=[ ["张三","19","男"],["李四","22","女"],["王五","20","男"],["赵六","21","女"] ];
+		var table=document.createElement("table");//创建标签table
+		//设置table中的属性
+		table.setAttribute("border", "1px");
+		table.setAttribute("width", "400px");
+		table.setAttribute("cellspacing", "0px");
+		table.setAttribute("cellpadding", "0px");
+
+		//声明一个用来拼接的字符串
+		var str="";
+
+		for(var i=0;i<arr2.length;i++){
+			//和行相关
+			str+="</tr>";
+			for(var j=0;j<arr2[i].length;j++){
+				//和列相关
+				str+="<td>"+arr2[i][j]+"</td>";
+			}
+			str+="</tr>";
+		}
+
+		table.innerHTML=str;//把str里的东西用innerHTML插入table里
+
+		document.body.appendChild(table);//把table元素放进body内，成为body的子节点
+	</script>
+</body>
+</html>

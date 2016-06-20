@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>1_解决DOM树解析问题</title>
+	<script type="text/javascript">
+		/*window.setTimeout(function (){
+			document.getElementsByTagName("p")[0].style.color="red";
+		}, 30);//假如事件超过了30毫秒*/
+
+		//网页加载完毕之后执行的代码    问：是否完美解决DOMReady
+		window.onload=function(){
+			document.getElementsByTagName("p")[0].style.color="red";
+			//如果图片大的话，或者点击图片触发事件的时候不方便（会报错），因为它是在网页加载完毕（包括DOM树，图片及其它加载项）之后才执行的，所以不能完美地解决DOMReady
+		}
+	</script>
+</head>
+<body>
+	<img src="1.jpg"/>
+	<p>文字变红</p>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>2_解决DOM树解析问题</title>
+	<script type="text/javascript">
+		// window.onload=function(){
+		// 	alert("DOM树以及外部资源全部加载完毕");
+		// }
+
+
+		//DOMContentLoaded()
+		//此方法只限于现代浏览器,IE低版本不支持此方法
+		// function DOMContentLoaded(){
+		// 	alert("DOM树加载完毕");
+		// }
+		//		监听事件			事件名		事件触发的回调函数   事件是否在捕获事件冒泡阶段
+		// document.addEventListener("DOMContentLoaded",DOMContentLoaded,false);
+		
+
+
+		//document.readyState
+		//适用于IE浏览器
+		document.onreadystatechange=function(){//查看DOM树运行状态
+			alert(document.readyState);
+		} //本身有五种状态，但只会弹出interactive和complete两种状态
+		
+	</script>
+</head>
+<body>
+	<img src="http://b.hiphotos.baidu.com/zhidao/pic/item/b58f8c5494eef01ffb8aff7ae2fe9925bd317df7.jpg"/>
+</body>
+</html>

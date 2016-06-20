@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+	<script>
+		var table=document.createElement("table");
+		//要使用table对象，那就可以直接使用table对象里面的属性和方法
+		table.border="1";
+		table.width="400";//连px都不需要加
+		table.cellSpacing="0";//用-连接的右边的英文首字母要大写
+		table.cellPadding="0";
+		
+		//添加一行
+		table.insertRow(0);//括号里面的数字表示插入第几行   0代表的是插入第一行
+		
+		for(var i=0;i<4;i++){
+			//添加列，必须要知道在哪一行去添加
+			table.rows[0].insertCell(i);//添加列
+			//添加表格内容
+			table.rows[0].cells[i].appendChild(document.createTextNode("cell"+i));//在第一行第i类插入一个文本节点
+		}
+		
+		table.deleteRow(0);//删除行
+		document.body.appendChild(table);
+	</script>
+</body>
+</html>

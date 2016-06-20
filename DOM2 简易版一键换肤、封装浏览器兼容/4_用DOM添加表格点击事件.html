@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		.title{
+			text-align:center;
+		}
+	</style>
+</head>
+<body>
+	<table width="400" border="1px" cellspacing="0" cellpadding="0" id="mytable">
+		<tr class="change">
+			<td>书名</td>
+			<td>价格</td>
+		</tr>
+		<tr>
+			<td>看得见风景的房间</td>
+			<td>￥30.00</td>
+		</tr>
+		<tr>
+			<td>60个瞬间</td>
+			<td>￥32.00</td>
+		</tr>
+	</table>
+	<input type="button" value="增加一行" onclick="addRow()"/>
+	<input type="button" value="删除第2行" onclick="delRow()"/>
+	<input type="button" value="修改标题" onclick="updateTitle()"/>
+
+	<script type="text/javascript">
+		function addRow(){
+			var table=document.getElementById("mytable");
+			var newRow=table.insertRow(table.rows.length);
+			var cell1=newRow.insertCell(0);
+			cell1.innerHTML="如何不翻船";
+			var cell2=newRow.insertCell(1);
+			cell2.appendChild(document.createTextNode("998"));
+		}
+
+		function delRow(){
+			document.getElementById("mytable").deleteRow(1);
+		}
+
+		function updateTitle(){
+			var row1=document.getElementById("mytable").rows[0];
+			//动态修改类名
+			row1.className="title";
+		}
+	</script>
+</body>
+</html>
