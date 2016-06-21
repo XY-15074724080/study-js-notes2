@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>5_小鱼跟随鼠标移动</title>
+	<style type="text/css">
+		div{
+			width:100%;
+			height:500px;
+		}
+		img{
+			width:100px;
+			height:100px;
+		}
+		#fish{
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<img src="fish.gif" id="fish"/>
+	<script type="text/javascript">
+		var fish=document.getElementById("fish");
+		document.onmousemove=function(event){
+			var event = event ? event : window.event;
+			fish.style.cssText="display:block;position:absolute;top:"+(event.clientY-50)+"px;left:"+(event.clientX-30)+"px;";
+			return;
+		}
+	</script>
+</body>
+</html>

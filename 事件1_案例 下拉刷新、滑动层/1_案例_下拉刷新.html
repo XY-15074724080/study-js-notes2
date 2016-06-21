@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>1_案例_下拉刷新</title>
+	<style type="text/css">
+		*{
+			padding:0px;
+			margin:0px auto;
+		}
+		#mainContent{
+			width:200px;
+			height:300px;
+			margin-top:20px;
+			border:1px solid #ccc;
+			overflow:scroll;/*溢出部分，用滚动条*/
+		}
+		li{
+			list-style: none;
+			text-align: center;
+		}
+		#showhidden{
+			width:100%;
+			height:20px;
+			background: #3cf;
+		}
+	</style>
+</head>
+<body>
+	<div id="mainContent">
+		<div id="myContent"><!--不要设置高度，让内容把后面一个div撑下去-->
+			<ul>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+				<li>item1-item-1-item1</li>
+			</ul>
+		</div>
+		<div id="showhidden" style="display:none">
+			<p>加载中，请稍后......</p>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		var obj=document.getElementById("mainContent");
+		obj.onscroll=function(){
+			//alert("触发了滚动事件");//只要移动滚动条，就会触发事件
+			var scrollH=obj.scrollHeight;//整个内容的高度，包括内容区域的高度，加上被“卷”起来的部分
+			var scrollT=obj.scrollTop;//被卷起来的高度 -> 滚动到哪里来了
+			var clientH=obj.clientHeight;//可见的内容区域的高度
+			//console.log("scrollHeight："+scrollH+"-------scrollTop："+scrollT+"------clientHeight："+clientH);
+			//=>scrollHeight=scrollTop+clientHeight
+			if(scrollH==scrollT+clientH){
+				//alert("已经到了底部");
+				var sh=document.getElementById("showhidden");//取到之前隐藏的部分的值
+				sh.style.display="block";//显示出来
+				window.setTimeout("frush()",1000);//设置延迟，每隔1000毫秒就执行函数frush
+			}
+		}
+
+		//加载新的下拉列表
+		function frush(){
+			var newdiv=document.createElement("div");//创建新的元素div
+			var newul=document.createElement("ul");//创建新的元素ul
+
+			//循环添加内容
+			for(var i=0;i<16;i++){
+				var newli=document.createElement("li");
+				newli.innerHTML="scro1-scro-1-scro1";
+				newul.appendChild(newli);//把新的li添加进ul里，成为它的子节点
+			}
+			newdiv.appendChild(newul);//把新的ul添加进div里，成为它的子节点
+			var sh=document.getElementById("showhidden");
+			obj.insertBefore(newdiv,sh);//把新的div添加进对象mainContent里，并添在showhidden的前面
+		}
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>1_单双击合并点击事件</title>
+</head>
+<body>
+	<!-- <input type="button" value="点我" onclick="show()" />
+	<script type="text/javascript">
+		function show(){
+			alert("叫你点我就点我");
+		}            //方法一：直接在标签上面绑定事件
+	</script>
+
+
+	<input type="button" value="双击点我" />
+	<script type="text/javascript">
+		var btn=document.getElementsByTagName("input")[1];
+		// btn.ondblclick=function(){
+		// 	alert("双击了我");        //方法二：DOM树加载完成之后，在js内绑定
+		// }
+		btn.addEventListener("dblclick", function(){
+		alert("双击了我");           //方法三：添加事件监听
+		});
+	</script> -->
+
+
+
+
+	<input type="button" value="再点我" onClick="aa()" ondblClick="bb()" />
+
+	<script type="text/javascript">
+		//同一个按钮上单击双击都可以分别弹出特定的信息
+		var isdb;//声明一个判断是不是双击的变量
+
+		function aa(){
+			isdb=false;//定义isdb初始值为false   
+			//当鼠标点击一次时，延迟500毫秒，如果500毫秒内鼠标又点击了一次，则触发双击事件，isdb的值改为true，那么进入if语句，跳出这个函数
+			window.setTimeout(cc, 500);//延迟500毫秒就执行函数cc
+			function cc(){
+				if(isdb!=false){//如果isdb不为false，则跳出
+					return;
+				}
+				alert("这是单击");
+			}
+		}
+
+		function bb(){
+			isdb=true;//触发双击事件，修改isdb的值，跳出单击事件函数，只执行双击事件函数
+			alert("这是双击");
+		}
+	</script>
+</body>
+</html>

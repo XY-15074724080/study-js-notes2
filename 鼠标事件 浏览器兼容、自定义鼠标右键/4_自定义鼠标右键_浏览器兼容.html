@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>4_自定义鼠标右键_浏览器兼容</title>
+	<style type="text/css">
+		#mydiv{
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<p id="myp">点我，弹出自定义右键菜单</p>
+	<div id="mydiv">
+		<li>你点啊</li>
+		<li>你再点啊</li>
+		<li>你再来点啊</li>
+	</div>
+
+	<script type="text/javascript">
+		var myp=document.getElementById("myp");
+		var mydiv=document.getElementById("mydiv");
+		myp.onmousedown=function(event){
+			var event = event ? event : window.event;//兼容IE
+			if(event.button==2){//说明是右键
+				//一个页面中，body中用oncontextmenu='return false'来取消鼠标右键
+				document.oncontextmenu=function(aevent){//阻止默认行为
+					if(window.event){
+						aevent=window.event;
+						aevent.returnValue=false;//IE中阻止事件的默认行为    针对低版本IE
+						aevent.preventDefault();//针对IE10和IE11来阻止
+					}else{//preventDefault()：取消事件的默认动作
+						aevent.preventDefault();//现代浏览器阻止事件的默认行为
+					}
+				};
+				//直接写css代码，改变其样式
+				mydiv.style.cssText="display:block;position:absolute;top:"+(event.clientY+5)+"px;left:"+event.clientX+"px;";
+			}
+		}
+		mydiv.onmouseout=function(){
+			setTimeout(function(){mydiv.style.cssText="display:none"},400);
+		}
+	</script>
+</body>
+</html>

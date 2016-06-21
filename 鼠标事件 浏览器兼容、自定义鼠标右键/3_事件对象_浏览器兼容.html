@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>3_事件对象_浏览器兼容</title>
+</head>
+<body>
+	<input type="button" value="点我" onclick="show(event)" />
+	<script type="text/javascript">
+		function show(event){
+			//在IE里，事件对象是window对象的一个event属性，所以要在IE显示的话，event前必须加windows.
+			//判断，当成 参数的event存不存在，如果存在
+			//就是这个event，如果不存在，说明是IE，用IE的方法来取
+			var event=event ? event : window.event;//兼容
+
+			alert(event.button);//因为是onclick事件，所以并不能识别鼠标右键
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>案例2_毛笔字贴</title>
+	<style type="text/css">
+		*{
+			padding:0;
+			margin:0 auto;
+		}
+		#canvas{
+			margin:0 auto;
+			display:block;
+		}
+		#white{
+			position:absolute;
+			left:60px;
+			top:30px;
+		}
+		#stroke{
+			position:absolute;
+			left:60px;
+			top:60px;
+		}
+	</style>
+</head>
+<body>
+	<input type="button" value="橡皮擦" id="white"/>
+	<input type="button" value="画笔" id="stroke"/>
+	<canvas id="canvas">
+		你的浏览器不支持canvas，请更新浏览器<!--不支持canvas的浏览器会弹出这句话，支持的浏览器不会-->
+	</canvas>
+
+	<script type="text/javascript">
+		//定义画布的大小
+		var canvasWidth=800;
+		var canvasHeight=canvasWidth;
+		//定义用于判断鼠标状态的变量
+		var flag=false;
+
+		//得到context
+		var canvas=document.getElementById("canvas");
+		var context=canvas.getContext("2d");
+
+
+		//设置canvas的大小
+		canvas.width=canvasWidth;
+		canvas.height=canvasHeight;
+
+		//开始绘制
+		draw();//这样便于我们之后修改时的调用
+		
+		
+		function draw(){
+			context.save();//这一段canvas的属性，只会在这一段起作用
+			//定义画笔的颜色，最好用rgb格式
+			context.strokeStyle="rgb(230,10,10)";
+			//开始绘制路线/路径
+			context.beginPath();
+			context.moveTo(0,0);//画笔移到(0,0)坐标，从这个坐标开始
+			context.lineTo(canvasWidth,0);//划线到(canvasWidth,0)这个坐标
+			context.lineTo(canvasWidth,canvasHeight);
+			context.lineTo(0,canvasHeight);
+			context.closePath();//绘制路线结束，这会使画笔从当前位置画直线回到起始位置
+			context.lineWidth=10;//设置画笔的粗细
+			context.stroke();//显示到canvas里面
+
+			//画米字格
+			context.beginPath();
+			context.moveTo(0,0);
+			context.lineTo(canvasWidth,canvasHeight);
+
+			context.moveTo(canvasWidth,0);
+			context.lineTo(0,canvasHeight);
+
+			context.moveTo(0,canvasHeight/2);
+			context.lineTo(canvasWidth,canvasHeight/2);
+
+			context.moveTo(canvasWidth/2,0);
+			context.lineTo(canvasWidth/2,canvasHeight);
+			
+
+			context.lineWidth=2;
+			context.stroke();
+			context.restore();//restore()：将绘图状态置为保存值，从栈中弹出存储的图形状态并恢复 CanvasRenderingContext2D 对象的属性、剪切路径和变换矩阵的值
+		}
+
+		//用户开始绘制
+		canvas.onmousedown=function(e){
+			delDefault(e);
+			flag=true;
+			lastLoc=windowToCanvas(e.clientX,e.clientY);//鼠标在画布上按下的最后的位置
+		}
+		canvas.onmouseup=function(e){
+			delDefault(e);
+			flag=false;
+		}
+		canvas.onmouseout=function(e){
+			delDefault(e);
+			flag=false;
+		}
+		canvas.onmouseover=function(e){
+			delDefault(e);
+			flag=false;
+		}
+
+		var whi=document.getElementById("white");
+		var stro=document.getElementById("stroke");
+		canvas.onmousemove=function(e){
+			delDefault(e);//自定义的用于兼容浏览器的函数
+			if(flag){
+				var curLoc=windowToCanvas(e.clientX,e.clientY);//鼠标在画布上按下的当前位置
+				context.beginPath();
+				context.moveTo(lastLoc.x,lastLoc.y);//从前一个位置开始
+				context.lineTo(curLoc.x,curLoc.y);//画到当前位置
+				context.strokeStyle="rgb(148,234,55)";//设置画笔颜色
+				context.lineWidth=30;
+				context.lineCap="round";
+				context.lineJoin="round";
+				context.closePath();
+				context.stroke();
+
+				lastLoc=curLoc;//当前位置的值即是下一次画笔绘制的开始位置
+			}
+		}
+
+		//封装_兼容浏览器，阻止事件的默认行为
+		function delDefault(event){
+			if(window.event){
+				e=window.event;
+				e.returnValue=false;
+				e.preventDefault();
+			}else{
+				event.preventDefault();
+			}
+		}
+		//封装_window到画布的距离->鼠标在画布上的位置
+		function windowToCanvas(x,y){
+			var box=canvas.getBoundingClientRect();//box.getBoundingClientRect().top：元素上边距离页面上边的距离
+			//			  向下取整
+			return {x:Math.floor(x-box.left),y:Math.floor(y-box.top)};
+		}
+
+
+	</script>
+</body>
+</html>

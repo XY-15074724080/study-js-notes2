@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		#box{
+			position:absolute;/*要实现可拖拽的窗口需要使其脱离文档流*/
+
+			/*初始位置*/
+			left:300px;
+			top:200px;
+
+			font-size: 12px;
+			background: #999;
+			padding:5px;
+			/*盒子阴影：X轴 Y轴 半径 颜色*/
+			box-shadow: 2px 2px 4px #ccc;/*shadow属性的支持性不是很好，最好在定义前加上-moz-等兼容一下浏览器*/
+			-moz-box-shadow:2px 2px 4px #ccc;
+			-webkit-box-shadow:2px 2px 4px #ccc;
+			-ms-box-shadow:2px 2px 4px #ccc;
+		}
+		#content{
+			border: 1px solid #A5B5D6;
+		}
+		#top{
+			width:425px;
+			line-height: 25px;
+			cursor:move;/*当鼠标移上，箭头样式 变为 十字拖拽 样式*/
+			background: #BDCEEF;
+			border-bottom: 1px solid #A5B5D6;
+			padding-left:5px;
+		}
+		#close{/*设置窗口关闭的样式*/
+			color:red;
+			font-size: 30px;
+			font-weight: bold;
+			float: right;/*这个要不要没关系*/
+			position:absolute;/*使其脱离文档流*/
+			top:2px;/*这样就可以设置它的top，right等属性调整位置*/
+			right:8px;
+			cursor:pointer;/*当鼠标移上，箭头样式 变为 手指选中 样式*/
+		}
+		#bottom{
+			width:420px;
+			height:250px;
+			padding:10px 5px;
+			background-color:#fff;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<div id="content">
+			<div id="top">
+				可拖拽
+				<span id="close"> x </span>
+			</div>
+			<div id="bottom">
+				内容......
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		window.onload=function(){
+			var oBox=document.getElementById("box");//盒子
+			var oTop=document.getElementById("top");//头部：可拖拽部分
+			document.getElementById("close").onclick=function(){
+				oBox.style.display="none";//一旦点击close部分则盒子样式显示为无（盒子消失）
+			}
+			startDrag(oBox,oTop);//调用一个开始拖动的函数，这是我们自己定义的
+		}
+
+		var params={//定义一个包含 初始位置、当前位置和 用于判断鼠标状态（按下、移动还是松开）属性的对象
+			left:0,
+			top:0,
+			currentX:0,
+			currentY:0,
+			flag:false
+		}
+
+		//封装_获取样式
+		function getStyle(obj,attr){
+			if(obj.currentStyle){//如果对象的当前样式（写在body部分的样式）存在
+				return obj.currentStyle[attr];
+			}else{//写在head部分的样式
+				return getComputedStyle(obj,false)[attr];
+			}
+		}
+
+		function startDrag(oBox,oTop){//自定义的拖拽函数
+			oTop.onmousedown=function(event){//在头部（拖拽部分）按下鼠标
+				//1、修改flag的值
+				params.flag=true;//定义按下状态为真，这样在move部分判断就可移动
+				//确定鼠标按下时窗口的初始位置
+				params.left=getStyle(oBox,"left");
+				params.top=getStyle(oBox,"top");
+				//2、得到当前鼠标的位置
+				var e=event?event:window.event;//兼容
+				params.currentX=e.clientX;
+				params.currentY=e.clientY;
+			}
+
+			document.onmousemove=function(event){//鼠标按下后在文档内的移动
+				var e=event?event:window.event;//同样要做兼容
+				//1、判断flag
+				if(params.flag){//判断，说明需要鼠标按下才能起作用，否则没有任何触发事件
+					var nowX=e.clientX;//鼠标当前的x坐标
+					var nowY=e.clientY;//鼠标当前的y坐标
+					//2、得到移动的距离
+					var disX=nowX-params.currentX;//鼠标移动的x部分的距离
+					var disY=nowY-params.currentY;//鼠标移动的y部分的距离
+
+					//3、赋值
+					oBox.style.left=parseInt(params.left)+disX+"px";//设置盒子的位置为初始位置加上移动的距离
+					//因为params.left的值带有px单位，所以加上一个parseInt来取它的数字部分，但是不要忘了运算完后要添上它的单位
+					oBox.style.top=parseInt(params.top)+disY+"px";
+
+					
+				}
+			}
+
+			document.onmouseup=function(event){
+				//鼠标松开
+				var e=event?event:window.event;//同样需要兼容
+				//修改flag的值，说明一旦鼠标松开，就进不了move部分的if语句，使其不能触发拖拽事件
+				params.flag=false;
+
+				// params.left=getStyle(oBox,"left");
+				// params.top=getStyle(oBox,"top");
+			}
+
+
+		}
+	</script>
+</body>
+</html>

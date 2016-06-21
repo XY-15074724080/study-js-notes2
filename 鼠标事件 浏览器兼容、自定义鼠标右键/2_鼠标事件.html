@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>2_鼠标事件</title>
+</head>
+<body>
+	<pre>
+		mousedown:鼠标按下
+		mouseout:鼠标移出
+		mouseover:鼠标移入
+		mouseup:鼠标松开
+		mousemove:鼠标移动
+	</pre>
+	<input type="button" value="长一点，再长一点" id="btn"/>
+
+	<script type="text/javascript">
+		var btn=document.getElementById("btn");
+		//						事件名     触发事件的回调函数
+		btn.addEventListener("mousedown",function(){
+			alert("鼠标按下，触发了mousedown");
+		});
+		btn.addEventListener("mouseout",function(){
+			alert("鼠标移出，触发了mouseout");
+		});
+		btn.addEventListener("mouseover",function(){
+			alert("鼠标移入，触发了mouseover");
+		});
+		btn.addEventListener("mouseup",function(){
+			alert("鼠标松开，触发了mouseup");
+		});
+		btn.addEventListener("mousemove",function(){
+			alert("鼠标移动，触发了mousemove");
+		});
+
+	</script>
+</body>
+</html>
